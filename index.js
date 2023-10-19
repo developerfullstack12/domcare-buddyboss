@@ -1,11 +1,36 @@
 import React from "react";
-import {View, Text} from "react-native";
-export const applyCustomCode = externalCodeSetup => {
-    // call custom code api here
-    // externalCodeSetup.configApi.setAppSwitchEnabled(true);
-    externalCodeSetup.navigationApi.replaceScreenComponent("SignupScreen", () => (
-        <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-            <Text>This is my signup screen.</Text>
-        </View>
-    ));
+import { NativeModules } from "react-native";
+import MyCustomLoginScreen from "./src/Login";
+import Article from "./src/Articles";
+
+export const applyCustomCode = (externalCodeSetup) => {
+  externalCodeSetup.navigationApi.replaceScreenComponent(
+    "LoginScreen",
+    MyCustomLoginScreen
+  );
+  externalCodeSetup.navigationApi.addNavigationRoute(
+    "LoginScreen",
+    MyCustomLoginScreen,
+    "Auth" // "Auth" | "noAuth" | "Main" | "All"
+  );
+ 
+
+  //externalCodeSetup.navigationApi.replaceScreenComponent("ArticleScreen", Article);
 };
+
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
+
+// const Stack = createStackNavigator();
+
+// export const applyCustomCode = () => {
+//   return (
+//     <NavigationContainer>
+//       <Stack.Navigator initialRouteName="LoginScreen">
+//         <Stack.Screen name="LoginScreen" component={MyCustomLoginScreen} />
+//         <Stack.Screen name="ArticleScreen" component={Article} />
+
+//       </Stack.Navigator>
+//     </NavigationContainer>
+//   );
+// }
